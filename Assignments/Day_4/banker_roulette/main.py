@@ -7,7 +7,7 @@ names_string = input("Give me everybody's names, separated by a comma: ")
 names = names_string.split(", ")
 
 # Generate a random index to select a person to pay
-num_to_pay = random.randint(0, len(names))
+num_to_pay = random.randint(0, len(names) - 1)
 
 # Print length of names list
 print(f"Length of names list: {len(names)}")

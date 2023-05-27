@@ -102,6 +102,8 @@ states_of_us_by_date = ["Delaware",
 "Hawaii"
 ]
 
+print(len(states_of_us_alphabeta))
+
 print(states_of_us_by_date[42])
 
 third_state_in_union = states_of_us_by_date[2]
@@ -111,9 +113,9 @@ print(third_state_in_union)
 states_of_us_by_date.append("Ryanka")
 new_state_of_ryan = states_of_us_by_date[50]
 print(new_state_of_ryan)
-print(states_of_us_by_date)
+# print(states_of_us_by_date)
 
 states_of_us_by_date.extend(["Chapelhoma", "Seven of Nineaii"])
 
 print(states_of_us_by_date[51])
-print(states_of_us_by_date)
+# print(states_of_us_by_date)
