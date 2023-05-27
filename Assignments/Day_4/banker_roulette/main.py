@@ -10,6 +10,8 @@ names = names_string.split(", ")
 
 num_to_pay = random.randint(0, len(names))
 
+print(num_to_pay)
+
 person_to_pay = names[num_to_pay]
 
 print(f"{person_to_pay} is going to buy the meal today!")
