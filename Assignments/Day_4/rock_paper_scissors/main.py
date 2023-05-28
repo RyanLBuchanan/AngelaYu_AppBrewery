@@ -28,14 +28,19 @@ scissors = '''
 #Write your code below this line 👇
 import random
 
-choice_list = [rock, paper, scissors]
+# Define the list of choices
+choice_list = ["rock", "paper", "scissors"]
 
+# Get user's choice
 your_choice = int(input("What do you choose? Type 0 for Rock, 1 for Paper, or 2 for Scissors.\n"))
 
+# Generate a random choice for the computer
 computer_choice = random.randint(0, 2)
 
+# Print the choices
 print(f"My choice:\n\n{choice_list[your_choice]}\n\nComputer chose:\n\n{choice_list[computer_choice]}\n")
 
+# Determine the winner based on choices
 if your_choice == computer_choice:
     print("It's a draw!")
 elif your_choice == 0 and computer_choice == 1:
