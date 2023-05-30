@@ -75,3 +75,16 @@ while not at_goal():
         move()
     else:
         hurdle()
+
+# Maze
+while not at_goal():
+    if right_is_clear() and not front_is_clear():
+        # If there is a path to the right, turn right and move forward until blocked
+        turn_right()
+        move()
+    elif front_is_clear():
+        # If there is no path to the right but there is a clear path forward, move forward
+        move()
+    else:
+        # If both right and front are blocked, turn left and search for a new path
+        turn_left()
