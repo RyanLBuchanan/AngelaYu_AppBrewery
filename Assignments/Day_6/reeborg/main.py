@@ -3,9 +3,8 @@ def turn_around():
     turn_left()
 
 def turn_right():
-    turn_left()
-    turn_left()
-    turn_left()
+    for _ in range(3):
+        turn_left()
 
 def make_square_counterclockwise():
     for _ in range(4):
@@ -28,10 +27,10 @@ def hurdle():
     turn_left()
 
 # Call make_square_counterclockwise function
-make_square_counterclockwise()
+# make_square_counterclockwise()
 
 # Call make_square_clockwise function
-make_square_clockwise()
+# make_square_clockwise()
 
 # Call hurdle function 6 times
 for _ in range(6):
