@@ -3,10 +3,12 @@ def turn_around():
     turn_left()
     turn_left()
 
+
 def turn_right():
     # Function to turn right by calling turn_left three times
     for _ in range(3):
         turn_left()
+
 
 def make_square_counterclockwise():
     # Function to make a square counterclockwise
@@ -14,23 +16,29 @@ def make_square_counterclockwise():
         move()
         turn_left()
 
+
 def make_square_clockwise():
     # Function to make a square clockwise
     for _ in range(4):
         move()
         turn_right()
 
+
 def hurdle():
     # Function to jump over a hurdle
     turn_left()
     while wall_on_right():
         move()
+
     turn_right()
     move()
     turn_right()
+
     while front_is_clear():
         move()
+
     turn_left()
+
 
 # Call make_square_counterclockwise function
 # make_square_counterclockwise()
