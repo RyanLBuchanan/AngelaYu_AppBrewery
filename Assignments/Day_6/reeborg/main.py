@@ -21,7 +21,7 @@ def make_square_clockwise():
 
 
 def hurdle():
-    move()
+    #     move()
     turn_left()
     move()
     turn_right()
@@ -48,5 +48,11 @@ def hurdle():
 #     num_hurdles -= 1
 #     print(num_hurdles)
 
+# while not at_goal():
+#     hurdle()
+
 while not at_goal():
-    hurdle()
+    if front_is_clear():
+        move()
+    else:
+        hurdle()
