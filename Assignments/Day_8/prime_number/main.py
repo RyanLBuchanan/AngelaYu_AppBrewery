@@ -29,3 +29,24 @@ while True:
         break
 
     prime_checker(number=n)
+
+# def is_prime(n):
+#     if n <= 1:
+#         print(f"{n} is not a prime number.")
+#         return False
+#
+#     for i in range(2, int(n ** 0.5) + 1):
+#         if n % i == 0:
+#             print(f"{n} is not a prime number.")
+#             return False
+#
+#     print(f"{n} is a prime number.")
+#     return True
+#
+# while True:
+#     n = int(input("Check this number (enter 0 to exit): "))
+#
+#     if n == 0:
+#         break
+#
+#     is_prime(n)
