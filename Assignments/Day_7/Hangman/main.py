@@ -1,48 +1,57 @@
-#Step 1
+from hangman_words import word_list
+from hangman_art import  logo, stages
 import random
 
-word_list = ["aardvark", "baboon", "camel"]
 
-#TODO-1 - Randomly choose a word from the word_list and assign it to a variable called chosen_word.
-random_word = random.choice(word_list)
-print(random_word)
+print(logo)
+end_of_game = False
+chosen_word = random.choice(word_list)
+word_length = len(chosen_word)
 
-hidden_word = ""
-for letter in random_word:
-    hidden_word += "_"
+# Create a variable called 'lives' to keep track of the number of lives left.
+#Set 'lives' to equal 6.
+lives = 6
 
-print(hidden_word)
+#Testing code
+# print(f'Pssst, the solution is {chosen_word}.')
 
-#TODO-2 - Ask the user to guess a letter and assign their answer to a variable called guess. Make guess lowercase.
-guessed_letter = input("Guess a letter: ").lower()
-print(guessed_letter)
-#TODO-3 - Check if the letter the user guessed (guess) is one of the letters in the chosen_word.
-for letter in random_word:
-    # print("Yes!  The letter you guessed is in the word.")
-    if guessed_letter == letter:
-        print("RIGHT!")
-    else:
-        print("WRONG!")
+#Create blanks
+display = []
+for _ in range(word_length):
+    display += "_"
 
-# Convert the string to a list
-hidden_word_list = list(random_word)
+while not end_of_game:
+    guess = input("Guess a letter: ").lower()
 
-index = hidden_word_list.index(guessed_letter)
+    if guess in display:
+        print(f"You've already guessed {guess}")
 
-# Replace the blank at the specified index with the guessed letter
-hidden_word_list[index] = guessed_letter
+    #Check guessed letter
+    for position in range(word_length):
+        letter = chosen_word[position]
+        # print(f"Current position: {position}\n Current letter: {letter}\n Guessed letter: {guess}")
+        if letter == guess:
+            display[position] = letter
 
-# Convert the list back to a string
-hidden_word = "".join(hidden_word_list)
+    # If guess is not a letter in the chosen_word, then reduce 'lives' by 1.
+    #If lives goes down to 0 then the game should stop and it should print "You lose."
+    if guess not in chosen_word:
+        lives -= 1
+        print(f"You guessed {guess}, that's not in the word. You lose a life")
 
-print(hidden_word)
+    if lives == 0:
+        end_of_game = True
+        print("\nYou lose.")
 
+    #Join all the elements in the list and turn it into a String.
+    print(f"{' '.join(display)}")
 
+    # print(f'Lives: {lives}')
 
-# if letter_guessed == letter in random_word:
-#     for blank in blanks:
-#         blanks = random_word[letter]
-# else:
-#     blanks += "_"
-#
-# print(blanks)
+    # Print the ASCII art from 'stages' that corresponds to the current number of 'lives' the user has remaining.
+    print(stages[lives])
+
+    #Check if user has got all letters.
+    if "_" not in display:
+        end_of_game = True
+        print("You win.")
