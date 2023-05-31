@@ -17,6 +17,6 @@ def greet_with(name, location):
     print(f"Greetings {name}.")
     print(f"What is it like here on {location}?")
 
-greet_with("Ryan", "Earth")
+greet_with(location="Earth", name="Ryan")
 
 
