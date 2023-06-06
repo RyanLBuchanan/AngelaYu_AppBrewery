@@ -3,6 +3,29 @@ from data import emojis, MENU, resources
 from colorama import Fore, Style
 
 
+# TODO add 'profit' to report statement
+profit = 0
+
+# TODO add Angela's 'check_resources' function
+def is_resource_sufficient(order_ingredients):
+    for item in order_ingredients:
+        if order_ingredients[item] >= resources[item]:
+            print(f"Sorry, there is not enough {item}.")
+            return False
+    return True
+
+def is_transaction_successful(money_received, drink_cost):
+    if money_received >= drink_cost:
+        change = round(money_received - drink_cost, 2)
+        print(f" Here is ${change} in change.")
+        global profit
+        profit += drink_cost
+        return True
+    else:
+        print("Sorry, there is not enough money. Money refunded.")
+        return False
+
+
 def check_resources(user_input):
     """
     Check if there are sufficient resources to make the selected drink.
@@ -17,13 +40,16 @@ def check_resources(user_input):
     # a. When the user chooses a drink, the program should check if there are enough
     # resources to make that drink.
 
-    if resources['water'] >= MENU[user_input]['ingredients']['water'] and resources['milk'] >= MENU[user_input]['ingredients']['milk'] and resources['coffee'] >= MENU[user_input]['ingredients']['coffee']:
+    if resources['water'] >= MENU[user_input]['ingredients']['water'] and resources['milk'] >= \
+            MENU[user_input]['ingredients']['milk'] and resources['coffee'] >= MENU[user_input]['ingredients'][
+        'coffee']:
         return True
     else:
         # TODO if Latte requires 200ml water but there is only 100ml left in the machine. It should
         # not continue to make the drink but print: “Sorry there is not enough water.”
         # c. The same should happen if another resource is depleted, e.g. milk or coffee.
         return False
+
 
 def order_drink(user_input):
     """
@@ -38,12 +64,6 @@ def order_drink(user_input):
     check_resources(user_input)
 
     insert_coins(user_input)
-    # if user_input == "espresso": # and check_resources():
-    #     insert_coins(user_input)
-    # elif user_input == "latte": # and check_resources():
-    #     insert_coins(user_input)
-    # elif user_input == "cappuccino": # and check_resources():
-    #     insert_coins(user_input)
 
 
 def insert_coins(user_input):
@@ -63,16 +83,16 @@ def insert_coins(user_input):
     # c. Calculate the monetary value of the coins inserted. E.g. 1 quarter, 2 dimes, 1 nickel, 2
     # pennies = 0.25 + 0.1 x 2 + 0.05 + 0.01 x 2 = $0.52
     print("Please insert coins.")
-    quarters = int(input("How many quarters?: "))
-    dimes = int(input("How many dimes?: "))
-    nickels = int(input("How many nickels?: "))
-    pennies = int(input("How many pennies?: "))
+    cash = int(input("How many quarters?: ")) * .25
+    cash += int(input("How many dimes?: ")) * .10
+    cash += int(input("How many nickels?: ")) * .05
+    cash += int(input("How many pennies?: ")) * .01
 
-    cash = round((quarters * .25) + (dimes * .1) + (nickels * .05) + (pennies * .01), 2)
+    # return cash
 
     # 6. Check transaction successful?
     # a. Check that the user has inserted enough money to purchase the drink they selected.
-    # E.g Latte cost $2.50, but they only inserted $0.52 then after counting the coins the
+    # if Latte cost $2.50, but they only inserted $0.52 then after counting the coins the
     # program should say “Sorry that's not enough money. Money refunded.”.
     # b. But if the user has inserted enough money, then the cost of the drink gets added to the
     # machine as the profit and this will be reflected the next time “report” is triggered. E.g.
@@ -112,8 +132,9 @@ def insert_coins(user_input):
     else:
         print("Sorry that's not enough money. Money refunded.")
 
-
     # 3. Print report.
+
+
 def print_report():
     """
     Print a report showing the current resource values.
@@ -130,27 +151,36 @@ def print_report():
     # Milk: 50ml
     # Coffee: 76g
     # Money: $2.5
-    print(f"Water: {resources['water']}ml\nMilk: {resources['milk']}ml\nCoffee: {resources['coffee']}g\nMoney: ${resources['money']}")
+    money_formatted = "${:.2f}".format(resources['money'])
+    print(
+        f"Water: {resources['water']}ml\nMilk: {resources['milk']}ml\nCoffee: {resources['coffee']}g\nMoney: ${money_formatted}")
 
-action_completed = False
+
+is_on = True
 
 # b. The prompt should show every time action has completed, e.g. once the drink is
 # dispensed. The prompt should show again to serve the next customer.
-while not action_completed:
+while is_on:
     # 1. Prompt user by asking “What would you like? (espresso/latte/cappuccino):”
     # a. Check the user’s input to decide what to do next.
-    user_input = input(f" What would you like? (espresso/latte/cappuccino): \n{Fore.RED}Type 'report' for maintenance\n"
-                       f"Or 'off' to quit{Style.RESET_ALL}\n").lower()
+    choice = input(f" What would you like? (espresso/latte/cappuccino): \n{Fore.RED}Type 'report' for maintenance\n"
+                   f"Or 'off' to quit{Style.RESET_ALL}\n").lower()
 
     # 2. Turn off the Coffee Machine by entering “off” to the prompt.
     # a. For maintainers of the coffee machine, they can use “off” as the secret word to turn off
     # the machine. Your code should end execution when this happens.
-    # If the desired condition is met, set the action_completed to True
-    if user_input == "report":
+    # If the desired condition is met, set the is_on to True
+    if choice == "off":
+        is_on = False
+    elif choice == "report":
         print_report()
-    elif user_input == "off":
-        action_completed = True
-    elif user_input == "espresso" or user_input == "latte" or user_input == "cappuccino":
-        order_drink(user_input)
+    elif choice == "espresso" or choice == "latte" or choice == "cappuccino":
+        order_drink(choice)
+        # if is_resource_sufficient(choice):
+        #     payment = insert_coins(choice)
+        #     is_transaction_successful(payment, drink["cost"])
+
     else:
         print("That is invalid input. Please enter your coffee order.")
+
+
