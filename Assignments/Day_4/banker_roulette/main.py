@@ -21,4 +21,4 @@ person_to_pay = names[num_to_pay]
 # Print the selected person who will buy the meal
 print(f"{person_to_pay} is going to buy the meal today!")
 
-# List of people at the table: Ryan, Chapel, Alita, Six, Seven
+# List of people at the cyber_girls: Ryan, Chapel, Alita, Six, Seven
