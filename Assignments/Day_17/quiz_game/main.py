@@ -1,5 +1,6 @@
 from data import question_data
 from question_model import Question
+from quiz_brain import QuizBrain
 
 # my_question = Question("Did you know that diarrhea is hereditary? ",
 #                        "Ya, it runs in your jeans! Bwaaah!")
@@ -8,9 +9,11 @@ from question_model import Question
 
 question_bank = []
 
-for item in question_data:
-    new_question = Question(item["text"], item["answer"])
+for question in question_data:
+    question_text = question["text"]
+    question_answer = question["answer"]
+    new_question = Question(question_text, question_answer)
     question_bank.append(new_question)
-#     print(new_question.text)
 
-# print(len(question_bank))
+quiz = QuizBrain(question_bank)
+quiz.next_question()
