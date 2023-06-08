@@ -24,9 +24,10 @@ class User:
 
 user_1 = User("007", "James Bond")
 user_2 = User("001", "Jack")
-
+user_3 = User("006", "Six the Toaster")
 # print(f"Username: {user_1.username}")
 
 user_1.follow(user_2)
 print(f"{user_1.username}'s followers: {user_1.followers}\n{user_1.username} is following: {user_1.following}\n")
 print(f"{user_2.username}'s followers: {user_2.followers}\n{user_2.username} is following: {user_2.following}\n")
+print(f"{user_3.username}'s followers: {user_3.followers}\n{user_3.username} is following: {user_3.following}\n")
