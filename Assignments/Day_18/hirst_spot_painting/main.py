@@ -5,6 +5,7 @@ from colorgram_extraction import color_list
 # print(len(color_list))
 tim = t.Turtle()
 # t.pensize(1)
+tim.speed("fastest")
 
 t.colormode(255)
 # Create turtle screen
