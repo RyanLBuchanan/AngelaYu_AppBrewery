@@ -33,11 +33,11 @@ def get_random_color():
 # Set the speed of drawing to the fastest
 tim.speed("fastest")
 
-def draw_spirogrpah(size_of_gap):
+def draw_spirograph(size_of_gap):
     for _ in range(360 // size_of_gap):
         tim.color(get_random_color())
         tim.circle(150)
         tim.setheading(tim.heading() + size_of_gap)
 
-draw_spirogrpah(5)
+draw_spirograph(5)
 screen.exitonclick()

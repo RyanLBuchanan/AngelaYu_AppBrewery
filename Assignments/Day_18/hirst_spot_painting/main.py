@@ -1,52 +1,54 @@
-###This code will not work in repl.it as there is no access to the colorgram package here.###
-##We talk about this in the video tutorials##
-import colorgram
+import turtle as t
+import random
+from colorgram_extraction import color_list
 
-# rgb_colors = []
-# colors = colorgram.extract('image.jpg', 25)
-# for color in colors:
-#     rgb_colors.append(color.rgb)
-#
-# print(rgb_colors)
-# print(len(rgb_colors))
+# print(len(color_list))
+tim = t.Turtle()
+# t.pensize(1)
+
+t.colormode(255)
+# Create turtle screen
+screen = t.Screen()
+# screen.setup(1000, 1000)
 
 
-"""FROM resource: https://pypi.org/project/colorgram.py/"""
-# # Extract 6 colors from an image.
-# colors = colorgram.extract('image.jpg', 25)
-#
-# # colorgram.extract returns Color objects, which let you access
-# # RGB, HSL, and what proportion of the image was that color.
-# first_color = colors[0]
-# rgb = first_color.rgb # e.g. (255, 151, 210)
-# hsl = first_color.hsl # e.g. (230, 255, 203)
-# proportion  = first_color.proportion # e.g. 0.34
-#
-# # RGB and HSL are named tuples, so values can be accessed as properties.
-# # These all work just as well:
-# red = rgb[0]
-# red = rgb.r
-# saturation = hsl[1]
-# saturation = hsl.s
+# Function for exiting turtle with space bar
+def exit_program():
+    t.bye()
 
-"""Lesson code"""
-"""RUN FIRST PART ONLY ONCE"""
-# rgb_colors = []
-#
-# colors = colorgram.extract('hirst_72_dots.jpg', 72)
-#
-# for color in colors:
-#     # rgb_colors.append(color.rgb)
-#     r = color.rgb.r
-#     g = color.rgb.g
-#     b = color.rgb.b
-#     new_color = (r, g, b)
-#     rgb_colors.append(new_color)
-#
-# print(rgb_colors)
 
-color_list = [(176, 48, 79), (42, 98, 146), (205, 161, 94), (223, 210, 102), (137, 90, 64), (177, 164, 38),
-              (109, 176, 207), (212, 131, 173), (227, 73, 49), (201, 75, 117), (88, 105, 192), (28, 143, 89),
-              (124, 218, 207), (120, 43, 71), (94, 158, 65), (227, 170, 187), (131, 184, 161), (48, 187, 202),
-              (172, 187, 222), (232, 173, 164), (154, 209, 219), (100, 51, 43), (34, 64, 115), (44, 80, 79),
-              (215, 207, 37), (52, 58, 66), (31, 87, 90), (76, 51, 43), (40, 67, 65), (84, 37, 55)]
+# Bind the exit program to the space bar
+screen.onkeypress(exit_program, "space")
+
+# Enable listening for key events
+screen.listen()
+
+x_offset = 25
+y_offset = 25
+
+number_of_dots = 20
+
+# Set turtles starting x coordinate
+# Set the turtle's initial position to the top-left corner
+def reset_location(x_offset, y_offset):
+    tim.penup()
+    tim.goto(-screen.window_width() / 2  + x_offset, screen.window_height() / 2 - y_offset)
+    tim.pendown()
+
+
+# TODO 1: Create 10 x 10 painting of dots
+def draw_line_of_dots():
+    for _ in range(number_of_dots):
+        tim.color(random.choice(color_list))
+        tim.dot(20)
+        tim.penup()
+        tim.forward(50)
+        tim.pendown()
+
+for _ in range(number_of_dots):
+    reset_location(x_offset, y_offset)
+    draw_line_of_dots()
+    # x_offset += 50
+    y_offset += 50
+
+screen.exitonclick()
