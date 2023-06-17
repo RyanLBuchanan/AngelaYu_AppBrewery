@@ -16,7 +16,6 @@ for snake_index in range(0, 3):
     new_snake.color("white")
     new_snake.goto(x=x_positions[snake_index], y=0)
     snake_sections.append(new_snake)
-    # snake.shapesize(stretch_wid=1.0, stretch_len=3.0)
 
 
 # Function for exiting the program with the space bar
