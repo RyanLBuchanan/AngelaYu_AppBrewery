@@ -1,31 +1,20 @@
-import turtle
 from turtle import Screen, Turtle
+from snake import Snake
+import time
 
 screen = Screen()
 screen.setup(width=600, height=600)
 screen.bgcolor("black")
 screen.title("My Snake Game")
+screen.tracer(0)
 
-# Create the turtle or snake instances
-snake_sections = []
-x_positions = [n * -20 for n in range(3)]
+snake = Snake()
 
-for snake_index in range(0, 3):
-    new_snake = Turtle(shape="square")
-    new_snake.penup()
-    new_snake.color("white")
-    new_snake.goto(x=x_positions[snake_index], y=0)
-    snake_sections.append(new_snake)
+game_is_on = True
+while game_is_on:
+    screen.update()
+    time.sleep(0.1)
 
-
-# Function for exiting the program with the space bar
-def exit_program():
-    turtle.bye()
-
-
-# Bind the exit program function to the space bar
-screen.onkeypress(exit_program, "space")
-
-screen.listen()
+    snake.move()
 
 screen.exitonclick()
