@@ -4,6 +4,8 @@ from snake import Snake
 from food import Food
 import time
 
+PERIMETER = 488
+
 # Create the screen
 screen = Screen()
 screen.setup(width=1000, height=1000)
@@ -48,6 +50,13 @@ while game_is_on:
         # print("Nom, nom, nom!")
         food.refresh() # Create a new piece of food
         scoreboard.increase_score() # Update the scoreboard
+
+    # Detect collisions with walls
+    # if snake.head.xcor() > 480 or snake.head.xcor() < -480 or snake.head.ycor() > 480 or snake.head.ycor() < -480:
+    if not (-PERIMETER < snake.head.xcor() < PERIMETER and -PERIMETER < snake.head.ycor() < PERIMETER):
+        # Perform action when the snake is out of range
+        game_is_on = False
+        scoreboard.game_over() # Display game over
 
 # Close the screen on click
 screen.exitonclick()
