@@ -22,12 +22,19 @@ class Snake:
         Create the initial snake by creating turtle segments and positioning them.
         """
         for position in STARTING_POSITIONS:
-            # Iterate over the starting positions list
-            new_segment = Turtle("square")
-            new_segment.color("white")
-            new_segment.penup()
-            new_segment.goto(position)
-            self.segments.append(new_segment)
+            self.add_segment(position)
+
+    def add_segment(self, position):
+        # Iterate over the starting positions list
+        new_segment = Turtle("square")
+        new_segment.color("white")
+        new_segment.penup()
+        new_segment.goto(position)
+        self.segments.append(new_segment)
+
+    def extend(self):
+        # Add a new segment to the end of the snake when it eats food
+        self.add_segment(self.segments[-1].position())
 
     def move(self):
         """

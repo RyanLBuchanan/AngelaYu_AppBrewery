@@ -49,14 +49,24 @@ while game_is_on:
         # Test collision with food as print statement
         # print("Nom, nom, nom!")
         food.refresh() # Create a new piece of food
+        snake.extend()
         scoreboard.increase_score() # Update the scoreboard
 
     # Detect collisions with walls
-    # if snake.head.xcor() > 480 or snake.head.xcor() < -480 or snake.head.ycor() > 480 or snake.head.ycor() < -480:
     if not (-PERIMETER < snake.head.xcor() < PERIMETER and -PERIMETER < snake.head.ycor() < PERIMETER):
         # Perform action when the snake is out of range
         game_is_on = False
         scoreboard.game_over() # Display game over
+
+    # Detect collision with tail
+    # If snake head collides with any segment in the tail
+    for segment in snake.segments:
+        if segment == snake.head:
+            pass
+        elif snake.head.distance(segment) < 10:
+            game_is_on = False
+            scoreboard.game_over()
+        # Trigger game over
 
 # Close the screen on click
 screen.exitonclick()
