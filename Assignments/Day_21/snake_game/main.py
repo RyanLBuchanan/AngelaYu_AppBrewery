@@ -1,5 +1,6 @@
 from turtle import Screen
 from snake import Snake
+from food import Food
 import time
 
 # Create the screen
@@ -11,6 +12,9 @@ screen.tracer(0)
 
 # Create the snake
 snake = Snake()
+
+# Create the food
+food = Food()
 
 # Events listeners
 screen.listen()
@@ -29,7 +33,7 @@ while game_is_on:
     screen.update()
 
     # Delay the movement
-    time.sleep(0.25)
+    time.sleep(0.1)
 
     # Move the snake
     snake.move()
