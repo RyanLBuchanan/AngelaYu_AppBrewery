@@ -1,11 +1,12 @@
 from turtle import Turtle
 
-# Create a constant reference
+# Create constant references
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
-# The starting positions for each segment of the snake. Adjust the values as needed.
-# List comprehension for the above list: [n * -20 for n in range(3)]
-# -> new_segment.goto(x=starting_positions[position], y=0)
 MOVE_DISTANCE = 20
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
 
 class Snake:
     def __init__(self):
@@ -14,6 +15,7 @@ class Snake:
         """
         self.segments = []
         self.create_snake()
+        self.head = self.segments[0]
 
     def create_snake(self):
         """
@@ -35,83 +37,47 @@ class Snake:
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
-        self.segments[0].forward(MOVE_DISTANCE)
+        self.head.forward(MOVE_DISTANCE)
 
     def up(self):
         """
         Turn the snake to move up
         """
-        # Get the current heading of the snake's head
-        current_heading = self.segments[0].heading()
-
-        # Check if the snake is already moving vertically
-        if current_heading != 90 and current_heading != 270:
-            # Set the new heading to up (0 degrees)
-            self.segments[0].setheading(0)
-
-        for seg_num in range(len(self.segments) - 1, 0, -1):
-            new_x = self.segments[seg_num - 1].xcor()
-            new_y = self.segments[seg_num - 1].ycor()
-            self.segments[seg_num].goto(new_x, new_y)
-        self.segments[0].left(90)
+        # If not heading down, the snake can move up
+        if self.head.heading() != DOWN:
+            # Set the current heading of the snake's head
+            self.head.setheading(UP)
 
     def down(self):
         """
         Turn the snake to move down
         """
-        # Get the current heading of the snake's head
-        current_heading = self.segments[0].heading()
-
-        # Check if the snake is already moving vertically
-        if current_heading != 90 and current_heading != 270:
-            # Set the new heading to up (0 degrees)
-            self.segments[0].setheading(0)
-
-        for seg_num in range(len(self.segments) - 1, 0, -1):
-            new_x = self.segments[seg_num - 1].xcor()
-            new_y = self.segments[seg_num - 1].ycor()
-            self.segments[seg_num].goto(new_x, new_y)
-        self.segments[0].right(90)
+        # If not heading up, the snake can move down
+        if self.head.heading() != UP:
+            # Set the current heading of the snake's head
+            self.head.setheading(DOWN)
 
     def left(self):
         """
         Turn the snake to move left
         """
-        # Get the current heading of the snake's head
-        current_heading = self.segments[0].heading()
-
-        # Check if the snake is already moving vertically
-        if current_heading != 90 and current_heading != 270:
-            # Set the new heading to up (0 degrees)
-            self.segments[0].setheading(0)
-
-        for seg_num in range(len(self.segments) - 1, 0, -1):
-            new_x = self.segments[seg_num - 1].xcor()
-            new_y = self.segments[seg_num - 1].ycor()
-            self.segments[seg_num].goto(new_x, new_y)
-        self.segments[0].left(90)
+        # If not heading right, the snake can move left
+        if self.head.heading() != RIGHT:
+            # Set the current heading of the snake's head
+            self.head.setheading(LEFT)
 
     def right(self):
         """
         Turn the snake to move right
         """
-        # Get the current heading of the snake's head
-        current_heading = self.segments[0].heading()
-
-        # Check if the snake is already moving vertically
-        if current_heading != 90 and current_heading != 270:
-            # Set the new heading to up (0 degrees)
-            self.segments[0].setheading(0)
-
-        for seg_num in range(len(self.segments) - 1, 0, -1):
-            new_x = self.segments[seg_num - 1].xcor()
-            new_y = self.segments[seg_num - 1].ycor()
-            self.segments[seg_num].goto(new_x, new_y)
-        self.segments[0].right(90)
+        # If not heading left, the snake can move right
+        if self.head.heading() != LEFT:
+            # Set the current heading of the snake's head
+            self.head.setheading(RIGHT)
 
     def exit_program(self):
         """
         Exit the program with the space bar
         """
-        self.segments[0].screen.bye()
+        self.head.screen.bye()
 
