@@ -19,7 +19,7 @@ snake = Snake()
 # Create the food
 food = Food()
 
-# Create the scoreboard
+# Create the scoreboard.py
 scoreboard = Scoreboard()
 
 # Events listeners
@@ -50,7 +50,7 @@ while game_is_on:
         # print("Nom, nom, nom!")
         food.refresh() # Create a new piece of food
         snake.extend()
-        scoreboard.increase_score() # Update the scoreboard
+        scoreboard.increase_score() # Update the scoreboard.py
 
     # Detect collisions with walls
     if not (-PERIMETER < snake.head.xcor() < PERIMETER and -PERIMETER < snake.head.ycor() < PERIMETER):
