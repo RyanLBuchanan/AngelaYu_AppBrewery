@@ -1,4 +1,8 @@
 from turtle import Turtle
+import random
+
+# Setup constants
+MOVING_UP = 20
 
 
 class Ball(Turtle):
@@ -12,7 +16,18 @@ class Ball(Turtle):
         """
         super().__init__()  # Initialize the Turtle superclass
         self.shape("circle")  # Set the shape of the food to a circle
-        self.penup()  # Lift the pen to prevent drawing lines
-        self.shapesize(stretch_len=1, stretch_wid=1)  # Scale the size of the food shape
         self.color("yellow")  # Set the color of the food to blue
-        self.speed("fastest")  # Set the animation speed of the food to the fastest
+        self.penup()  # Lift the pen to prevent drawing lines
+        self.x_move = 10
+        self.y_move = 10
+
+    def move(self):
+        new_x = self.xcor() + self.x_move
+        new_y = self.ycor() + self.y_move
+        self.goto(new_x, new_y)
+
+    def bounce_y(self):
+        self.y_move *= -1
+
+    def bounce_x(self):
+        self.x_move *= -1

@@ -1,19 +1,21 @@
 # Pong Game
 from turtle import Screen
-
-from Day_22.pong_game.ball import Ball
-# TODO 1: Create the game window (screen) and set up the display
-
 # from scoreboard.py import Scoreboard
 from paddle import Paddle
 from ball import Ball
 import time
 
+from Day_22.pong_game.ball import Ball
+# TODO 1: Create the game window (screen) and set up the display
+
+
 PERIMETER_X = 1800
 PERIMETER_Y = 900
-OUT_OF_BOUNDS = 788
+PADDLE_X_MARGIN = PERIMETER_X/2 - 50
+# OUT_OF_BOUNDS = 788
 GAME_BOARD_COLOR = "black"
-PADDLE_X_POS, PADDLE_Y_POS = 800, 0
+PADDLE_X_POS, PADDLE_Y_POS = 850, 0
+UP, DOWN = 90, 270
 
 # Create game board (screen)
 screen = Screen()
@@ -24,17 +26,18 @@ screen.tracer(0)
 
 
 # Create paddles
-r_paddle = Paddle(PADDLE_X_POS, PADDLE_Y_POS)
-l_paddle = Paddle(-PADDLE_X_POS, PADDLE_Y_POS)
-# ball = Ball()
+r_paddle = Paddle((PADDLE_X_MARGIN, PADDLE_Y_POS))
+l_paddle = Paddle((-PADDLE_X_MARGIN, PADDLE_Y_POS))
+# Instantiate the ball
+ball = Ball()
 
 
 # Event listeners
 screen.listen()
-screen.onkey(r_paddle.r_go_up, "Up")
-screen.onkey(r_paddle.r_go_down, "Down")
-screen.onkey(l_paddle.l_go_up, "w")
-screen.onkey(l_paddle.l_go_down, "s")
+screen.onkey(r_paddle.go_up, "Up")
+screen.onkey(r_paddle.go_down, "Down")
+screen.onkey(l_paddle.go_up, "w")
+screen.onkey(l_paddle.go_down, "s")
 
 
 # Exit on space bar for development
@@ -52,18 +55,24 @@ while game_is_on:
     screen.update()
 
     # Delay ball movement for development
-    time.sleep(0.1)
+    time.sleep(0.025)
 
+    ball.move()
 
+    # Exit on space bar for development
     screen.onkeypress(exit_program, "space")
 
-# TODO 2a and 2b: Create the paddle objects for both players
+    # Detect collisions with the walls
+    if ball.ycor() > (PERIMETER_Y/2 - 20) or ball.ycor() < -(PERIMETER_Y/2 - 20):
+        ball.bounce_y()
 
-# TODO 3: Create the ball object and set its initial position and movement
-
-# TODO 4: Detect collisions with walls and bounce
-
-# TODO 5: Detect paddle collisions and change ball direction
+    # Detect r_paddle collisions and change ball direction
+    if ball.distance(r_paddle) < 50 and ball.xcor() > 840 or ball.distance(l_paddle) < 50 and ball.xcor() < -840:
+        print("Made contact with paddle")
+        ball.bounce_x()
+    elif ball.xcor() > PERIMETER_X/2 or ball.xcor() < -(PERIMETER_X/2):
+        print("GAME OVER!")
+        game_is_on = False
 
 # TODO 6: Detect when paddles misses ball
 
