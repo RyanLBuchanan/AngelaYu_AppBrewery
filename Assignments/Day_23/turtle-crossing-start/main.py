@@ -1,17 +1,6 @@
-"""
-1. A turtle moves forwards when you press the "Up" key. It can only move forwards, not back, left or right.
-
-2. Cars are randomly generated along the y-axis and will move from the right edge of the screen to the left edge.
-
-3. When the turtle hits the top edge of the screen, it moves back to the original position and the player levels up. On
-    the next level, the car speed increases.
-
-4. When the turtle collides with a car, it's game over and everything stops.
-"""
 import time
 from turtle import Screen
 from player import Player
-import car_manager
 from car_manager import CarManager
 from scoreboard import Scoreboard
 
@@ -27,17 +16,11 @@ screen.bgcolor(GAME_BOARD_COLOR)
 player = Player()
 car_manager = CarManager()
 
-
-#TODO Car Generation: Create a new car at random time intervals but not have more 3 cars generated at a time
-# time_interval = 0
-# while time_interval < 10:
 cars = []
-
 for _ in range(15):
     # Instantiate the car
     new_car = CarManager()
     cars.append(new_car)
-    # time_interval += 1
 
 # Instantiate the scoreboard
 scoreboard = Scoreboard()
