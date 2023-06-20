@@ -25,6 +25,8 @@ screen.bgcolor(GAME_BOARD_COLOR)
 
 # Instantiate the player
 player = Player()
+car_manager = CarManager()
+
 
 #TODO Car Generation: Create a new car at random time intervals but not have more 3 cars generated at a time
 # time_interval = 0
@@ -57,10 +59,9 @@ while game_is_on:
     time.sleep(0.1)
     screen.update()
 
-    for car in cars:
-        car.move()
+    car_manager.create_car()
 
-    # car.generate_car()
+    car_manager.move_cars()
 
 
 
