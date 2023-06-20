@@ -63,7 +63,10 @@ while game_is_on:
 
     car_manager.move_cars()
 
-
+    # Detect collisions with cars
+    for car in car_manager.all_cars:
+        if car.distance(player) < 20:
+            game_is_on = False
 
     # Exit on space bar for development
     screen.onkeypress(exit_program, "space")
