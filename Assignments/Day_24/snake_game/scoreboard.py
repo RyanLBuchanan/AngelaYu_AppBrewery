@@ -1,16 +1,18 @@
 from turtle import Turtle
 ALIGNMENT = "center"
 FONT = ("Press Start 2P", 16, "normal")
+SCOREBOARD_COORDINATES = 0, 475
 
 class Scoreboard(Turtle):
     def __init__(self):
         super().__init__()
         self.score = 0
+        self.high_score = 0
         self.color("orange")
         self.penup()
         self.hideturtle()
         self.speed("fastest")
-        self.goto(0, 0)
+        self.goto(SCOREBOARD_COORDINATES)
         self.update_scoreboard()
 
     def update_scoreboard(self):
@@ -18,7 +20,7 @@ class Scoreboard(Turtle):
         Write the current score on the screen using the custom font.
         """
         self.clear()  # Clear any previously written score
-        self.write(f"Score: {self.score}", align=ALIGNMENT, font=FONT)
+        self.write(f"Score: {self.score} High Score: {self.high_score}", align=ALIGNMENT, font=FONT)
 
     def increase_score(self):
         """
@@ -27,10 +29,8 @@ class Scoreboard(Turtle):
         self.score += 1
         self.update_scoreboard()
 
-    def game_over(self):
-        """
-        Tell the user the game is over
-        """
-        self.goto(0,0)
-        self.color("red")
-        self.write(f"GAME OVER!", align=ALIGNMENT, font=FONT)
+    def reset(self):
+        if self.score > self.high_score:
+            self.high_score = self.score
+        self.score = 0
+        self.update_scoreboard()

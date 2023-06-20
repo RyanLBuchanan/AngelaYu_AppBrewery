@@ -1,6 +1,7 @@
 from turtle import Turtle
 
 # Create constant references
+SNAKE_GRAVEYARD = 1200, 1200
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 MOVE_DISTANCE = 20
 UP = 90
@@ -31,6 +32,13 @@ class Snake:
         new_segment.penup()
         new_segment.goto(position)
         self.segments.append(new_segment)
+
+    def reset(self):
+        for seg in self.segments:
+            seg.goto(SNAKE_GRAVEYARD)
+        self.segments.clear()
+        self.create_snake()
+        self.head = self.segments[0]
 
     def extend(self):
         # Add a new segment to the end of the snake when it eats food

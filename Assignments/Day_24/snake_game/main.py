@@ -39,7 +39,7 @@ while game_is_on:
     screen.update()
 
     # Delay the movement so that it is easier to track snake during development
-    time.sleep(0.05)
+    time.sleep(0.1)
 
     # Move the snake
     snake.move()
@@ -55,15 +55,15 @@ while game_is_on:
     # Detect collisions with walls
     if not (-PERIMETER < snake.head.xcor() < PERIMETER and -PERIMETER < snake.head.ycor() < PERIMETER):
         # Perform action when the snake is out of range
-        game_is_on = False
-        scoreboard.game_over() # Display game over
+        scoreboard.reset()
+        snake.reset()
 
     # Detect collision with tail
     # If snake head collides with any segment in the tail
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_is_on = False
-            scoreboard.game_over()
+            scoreboard.reset()
+            snake.reset()
 
 # Close the screen on click
 screen.exitonclick()
