@@ -10,7 +10,7 @@ class Scoreboard(Turtle):
         self.penup()
         self.hideturtle()
         self.speed("fastest")
-        self.goto(0, 470)
+        self.goto(0, 0)
         self.update_scoreboard()
 
     def update_scoreboard(self):
