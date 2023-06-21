@@ -9,7 +9,8 @@
 
 
 # Open the file containing the invited names list
-invited_names_list = open("C:/Users/vreed/Desktop/Python/Udemy/AngelaYu/AngelaYu_AppBrewery/Assignments/Day_24/Mail Merge Project Start/Input/Names/invited_names.txt", "r")
+invited_names_list = open("C:/Users/vreed/Desktop/Python/Udemy/AngelaYu/AngelaYu_AppBrewery/Assignments/Day_24/Mail "
+                          "Merge Project Start/Input/Names/invited_names.txt", "r")
 
 # Read all the lines from the file and store them in a list
 names_list = invited_names_list.readlines()
@@ -33,7 +34,8 @@ with open("C:/Users/vreed/Desktop/Python/Udemy/AngelaYu/AngelaYu_AppBrewery/"
         addressed_letter = template_letter.replace("[name]", name)
 
         # Save the personalized letter to a file
-        with open(f"C:/Users/vreed/Desktop/Python/Udemy/AngelaYu/AngelaYu_AppBrewery/Assignments/Day_24/Mail Merge Project Start/Output/ReadyToSend/{name}.txt", "w") as output_file:
+        with open(f"C:/Users/vreed/Desktop/Python/Udemy/AngelaYu/AngelaYu_AppBrewery/Assignments/Day_24/Mail Merge "
+                  f"Project Start/Output/ReadyToSend/{name}.txt", "w") as output_file:
             output_file.write(addressed_letter)
 
 
