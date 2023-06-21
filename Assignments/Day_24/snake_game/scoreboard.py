@@ -39,12 +39,3 @@ class Scoreboard(Turtle):
                 data.write(f"{self.high_score}")
         self.score = 0
         self.update_scoreboard()
-
-    # def get_high_score(self):
-    #     with open("data.txt", mode="r") as file:
-    #         self.high_score = int(file.read())
-    #     return self.high_score
-    #
-    # def set_high_score(self):
-    #     with open("data.txt", mode="w") as file:
-    #         file.write(str(self.high_score))
