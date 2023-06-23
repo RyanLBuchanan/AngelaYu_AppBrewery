@@ -35,7 +35,7 @@ while len(guessed_states) < 50:
             if state not in guessed_states:
                 missing_states.append(state)
         new_data = pd.DataFrame(missing_states)
-        new_data.to_csv("data/states_to_learn.csv")
+        new_data.to_csv("states_to_learn.csv")
         break
 
     # If the answer state is one of the states
@@ -47,8 +47,6 @@ while len(guessed_states) < 50:
         state_data = data[data.state == answer_state]
         t.goto(int(state_data.x), int(state_data.y))
         t.write(answer_state)
-
-# states_to_learn.csv
 
 
 # # Bind the exit program function to the space bar
