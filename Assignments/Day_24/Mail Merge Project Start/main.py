@@ -9,8 +9,7 @@
 
 
 # Open the file containing the invited names list
-invited_names_list = open("C:/Users/vreed/Desktop/Python/Udemy/AngelaYu/AngelaYu_AppBrewery/Assignments/Day_24/Mail "
-                          "Merge Project Start/Input/Names/invited_names.txt", "r")
+invited_names_list = open("./Input/Names/invited_names.txt", "r")
 
 # Read all the lines from the file and store them in a list
 names_list = invited_names_list.readlines()
@@ -25,8 +24,7 @@ revised_names_list = [name.rstrip('\n') for name in names_list]
 # print(revised_names_list)
 
 # Write letters replacing [name] with an actual name from the invited names list
-with open("C:/Users/vreed/Desktop/Python/Udemy/AngelaYu/AngelaYu_AppBrewery/"
-          "Assignments/Day_24/Mail Merge Project Start/Input/Letters/starting_letter.txt", "r") as original_letter:
+with open("./Input/Letters/starting_letter.txt", "r") as original_letter:
     template_letter = original_letter.read()
 
     # Generate personalized letters for each name
@@ -34,8 +32,7 @@ with open("C:/Users/vreed/Desktop/Python/Udemy/AngelaYu/AngelaYu_AppBrewery/"
         addressed_letter = template_letter.replace("[name]", name)
 
         # Save the personalized letter to a file
-        with open(f"C:/Users/vreed/Desktop/Python/Udemy/AngelaYu/AngelaYu_AppBrewery/Assignments/Day_24/Mail Merge "
-                  f"Project Start/Output/ReadyToSend/{name}.txt", "w") as output_file:
+        with open(f"./Output/ReadyToSend/{name}.txt", "w") as output_file:
             output_file.write(addressed_letter)
 
 
