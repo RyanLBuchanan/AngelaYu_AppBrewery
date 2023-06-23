@@ -15,7 +15,7 @@ invited_names_list = open("./Input/Names/invited_names.txt", "r")
 names_list = invited_names_list.readlines()
 
 # Print the original list of names
-# print(names_list)
+print(names_list)
 
 # Remove the newline character ('\n') from each name in the list
 revised_names_list = [name.rstrip('\n') for name in names_list]
