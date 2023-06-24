@@ -18,12 +18,17 @@ my_label["text"] = "New text"
 
 # Button click function
 def button_clicked():
-    my_label["text"] = "I got clicked!"
+    user_input = input.get()
+    my_label["text"] = user_input
 
 
 # Button
 my_button = Button(text="Click me!", font=FONT, command=button_clicked, fg="orange")  # Color button fg="blue", bg="green"
 my_button.pack()
+
+# Entry component
+input = Entry(width=20)
+input.pack()
 
 
 
