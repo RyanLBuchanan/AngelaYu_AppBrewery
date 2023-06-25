@@ -1,5 +1,5 @@
 from tkinter import *
-from rich import padding
+from tkinter import messagebox
 
 # Constants
 FONT = ("Calibri", 12, "normal")
@@ -15,11 +15,29 @@ def save():
     email = email_entry.get()
     password = password_entry.get()
 
-    with open("data.txt", "a") as data_file:
-        data_file.write(f"{website} | {email} | {password}\n")
+    # Check if any fields are empty
+    if not website or not email or not password:
+        messagebox.showwarning(title="Empty Fields", message="Please fill in all fields.")
+        return
+    else:
 
-    website_entry.delete(0, END)
-    password_entry.delete(0, END)
+        # Format the values with fixed width
+        formatted_website = "{:<20}".format(website)
+        formatted_email = "{:<20}".format(email)
+        formatted_password = "{:<20}".format(password)
+
+        confirmed = messagebox.askokcancel(title=website, message=f"These are the details entered: \n\n"
+                                                      f"Email:     {formatted_email}\n"
+                                                      f"Website:     {formatted_website}\n"
+                                                      f"Password:     {formatted_password}\n\n"
+                                                      f"Does everything checkout?")
+        if confirmed:
+
+            with open("data.txt", "a") as data_file:
+                data_file.write(f"{website} | {email} | {password}\n")
+
+            website_entry.delete(0, END)
+            password_entry.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
