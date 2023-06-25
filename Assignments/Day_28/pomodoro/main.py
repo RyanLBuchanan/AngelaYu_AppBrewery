@@ -7,13 +7,14 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 25
+WORK_MIN = 1
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 # Constants
 FONT_PRESS_START = "Press Start 2P"
 BGCOLOR_DARKTHEME1 = "#1F3B4D"
 BGCOLOR_DARKTHEME2 = "#92A8A0"
+reps = 0
 
 # ---------------------------- TIMER RESET ------------------------------- #
 
@@ -23,8 +24,25 @@ def reset_timer():
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
 def start_timer():
-    # Call count down function
-    count_down(WORK_MIN * 60)
+    global reps  # Global variable to track the number of repetitions
+    reps += 1
+
+    work_secs = WORK_MIN * 60  # Convert work duration from minutes to seconds
+    short_break_secs = SHORT_BREAK_MIN * 60  # Convert short break duration from minutes to seconds
+    long_break_secs = LONG_BREAK_MIN * 60  # Convert long break duration from minutes to seconds
+
+    if reps % 8 == 0:
+        # If it's the eighth repetition, start the long break countdown
+        count_down(long_break_secs)
+        timer_label.config(text="Break", fg=RED)
+    elif reps % 2 == 0:
+        # If it's the second, fourth or sixth repetition,
+        # start the work countdown
+        count_down(short_break_secs)
+        timer_label.config(text="Break", fg=PINK)
+    else:
+        count_down(work_secs)
+
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -35,6 +53,8 @@ def count_down(count):
     canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec:02d}")
     if count > 0:
         window.after(1000, count_down, count - 1)
+    else:
+        start_timer()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
