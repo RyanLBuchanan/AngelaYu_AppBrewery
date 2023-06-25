@@ -10,6 +10,18 @@ BGCOLOR_DARKTHEME2 = "#92A8A0"
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
+def save():
+    website = website_entry.get()
+    email = email_entry.get()
+    password = password_entry.get()
+
+    with open("data.txt", "a") as data_file:
+        data_file.write(f"{website} | {email} | {password}\n")
+
+    website_entry.delete(0, END)
+    password_entry.delete(0, END)
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
@@ -34,10 +46,11 @@ password_label.grid(column=0, row=3)  # Display the password label in column 0, 
 # Entries
 website_entry = Entry(width=50)
 website_entry.grid(column=1, row=1, columnspan=2)  # Display the website entry field in column 1, row 2
+website_entry.focus()
 
 email_entry = Entry(width=50)
 email_entry.grid(column=1, row=2, columnspan=2)  # Display the email entry field in column 1, row 3
-
+email_entry.insert(0, "buchanan.ryan22@gmail.com")
 password_entry = Entry(width=32)
 password_entry.grid(column=1, row=3)  # Display the password entry field in the frame, with right padding
 
@@ -45,8 +58,11 @@ password_entry.grid(column=1, row=3)  # Display the password entry field in the 
 password_button = Button(text="Generate Password", fg="orange", bg=BGCOLOR_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0)
 password_button.grid(column=2, row=3)  # Display the password button in the frame, with left alignment
 
-add_button = Button(width=50, text="Add", fg="orange", bg=BGCOLOR_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0)
+add_button = Button(width=50, text="Add", fg="orange", bg=BGCOLOR_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0, command=save)
 add_button.grid(row=4, column=1, columnspan=2, padx=2, pady=2)
+
+
+
 
 # ---------------------------- Development Tools ------------------------------- #
 
