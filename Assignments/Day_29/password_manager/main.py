@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
+from random import randint, choice, shuffle
+import pyperclip
 
 # Constants
 FONT = ("Calibri", 12, "normal")
@@ -7,9 +9,39 @@ BGCOLOR_DARKTHEME1 = "#1F3B4D"
 BGCOLOR_DARKTHEME2 = "#92A8A0"
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+def generate_password():
+    # Define character sets
+    letters = [
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+        'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D',
+        'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+        'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    ]
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    # Generate password using list comprehension
+    password_list = [
+        choice(letters) for _ in range(randint(8, 10))
+    ] + [
+        choice(numbers) for _ in range(randint(2, 4))
+    ] + [
+        choice(symbols) for _ in range(randint(2, 4))
+    ]
+
+    # Shuffle the password characters
+    shuffle(password_list)
+
+    # Combine the characters into a string
+    password = "".join(password_list)
+
+    # Clear and insert the generated password into the entry field
+    password_entry.delete(0, END)
+    password_entry.insert(0, password)
+
+    pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
-
 def save():
     website = website_entry.get()
     email = email_entry.get()
@@ -41,7 +73,6 @@ def save():
 
 
 # ---------------------------- UI SETUP ------------------------------- #
-
 window = Tk()
 window.title("Password Manager")
 window.config(bg=BGCOLOR_DARKTHEME1, padx=50, pady=50)
@@ -73,17 +104,14 @@ password_entry = Entry(width=32)
 password_entry.grid(column=1, row=3)  # Display the password entry field in the frame, with right padding
 
 # Buttons
-password_button = Button(text="Generate Password", fg="orange", bg=BGCOLOR_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0)
+password_button = Button(text="Generate Password", fg="orange", bg=BGCOLOR_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0, command=generate_password)
 password_button.grid(column=2, row=3)  # Display the password button in the frame, with left alignment
+
 
 add_button = Button(width=50, text="Add", fg="orange", bg=BGCOLOR_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0, command=save)
 add_button.grid(row=4, column=1, columnspan=2, padx=2, pady=2)
 
-
-
-
 # ---------------------------- Development Tools ------------------------------- #
-
 # Function for closing on space bar
 def exit_program(event):
     window.destroy()  # Destroy the Tk window
