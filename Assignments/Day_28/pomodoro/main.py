@@ -7,19 +7,25 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 1
+WORK_MIN = 25
 SHORT_BREAK_MIN = 5
-LONG_BREAK_MIN = 20
+LONG_BREAK_MIN = 15
 # Constants
 FONT_PRESS_START = "Press Start 2P"
 BGCOLOR_DARKTHEME1 = "#1F3B4D"
 BGCOLOR_DARKTHEME2 = "#92A8A0"
 reps = 0
+timer = None
 
 # ---------------------------- TIMER RESET ------------------------------- #
 
 def reset_timer():
-    pass
+    window.after_cancel(timer)
+    canvas.itemconfig(timer_text, text="00:00")
+    timer_label.config(text="Timer")
+    checkmarks_label.config(text="")
+    global reps
+    reps = 0
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
@@ -44,7 +50,6 @@ def start_timer():
         count_down(work_secs)
 
 
-
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 
 def count_down(count):
@@ -52,9 +57,15 @@ def count_down(count):
     count_sec = count % 60
     canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec:02d}")
     if count > 0:
-        window.after(1000, count_down, count - 1)
+        global timer
+        timer = window.after(1000, count_down, count - 1)
     else:
         start_timer()
+        marks = ""
+        work_sessions = math.floor(reps/2)
+        for _ in range(work_sessions):
+            marks = "✔"
+        checkmarks_label.config(text=marks)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -87,7 +98,7 @@ timer_label = Label(text="Timer", fg="green", bg=BGCOLOR_DARKTHEME2, font=(FONT_
 timer_label.grid(column=1, row=0)
 
 # Create a label for displaying checkmarks
-checkmarks_label = Label(text="✔", fg="green", bg=BGCOLOR_DARKTHEME2, font=(FONT_PRESS_START, 20, "normal"), padx=20, pady=20)
+checkmarks_label = Label(fg="green", bg=BGCOLOR_DARKTHEME2, font=(FONT_PRESS_START, 20, "normal"), padx=20, pady=20)
 
 # Position the checkmarks label in the window's grid
 checkmarks_label.grid(column=1, row=4)
@@ -99,7 +110,7 @@ start_button = Button(text="Start", fg="orange", font=(FONT_PRESS_START, 8, "nor
 start_button.grid(column=0, row=3)
 
 # Create a button for resetting the timer
-reset_button = Button(text="Reset", fg="orange", font=(FONT_PRESS_START, 8, "normal"), bg=BGCOLOR_DARKTHEME1, padx=5, pady=5, highlightthickness=0)
+reset_button = Button(text="Reset", fg="orange", font=(FONT_PRESS_START, 8, "normal"), bg=BGCOLOR_DARKTHEME1, padx=5, pady=5, highlightthickness=0, command=reset_timer)
 
 # Position the reset button in the window's grid
 reset_button.grid(column=2, row=3)
