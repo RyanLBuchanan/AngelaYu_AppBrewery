@@ -8,6 +8,8 @@ import pyperclip
 FONT = ("Calibri", 12, "normal")
 BGCOLOR_DARKTHEME1 = "#1F3B4D"
 BGCOLOR_DARKTHEME2 = "#92A8A0"
+CYAN_DARKTHEME1 = "#33CCCC"
+CYAN_DARKTHEME2 = "#009999"
 DEFAULT_EMAIL = "buchanan.ryan22@gmail.com"
 
 # ---------------------------- SEARCH WEBSITES ------------------------------- #
@@ -21,7 +23,9 @@ def search_websites():
         if password_to_search:
             messagebox.showinfo(title=website_to_find, message=f"Email: {DEFAULT_EMAIL}\nPassword: {password_to_search}")
         else:
-            messagebox.showwarning(title="Website Not Found", message="Website not found in data.")
+            messagebox.showwarning(title="Website Not Found",
+                                   message=f"Website not found for your entry \"{website_to_find}\""
+                                           f"\n\nMake sure to enter the website exactly as you saved it.")
 
     except FileNotFoundError:
         messagebox.showwarning(title="File Not Found", message="Data file not found.")
@@ -143,14 +147,14 @@ password_entry = Entry(width=32)
 password_entry.grid(column=1, row=3)  # Display the password entry field in the frame, with right padding
 
 # Buttons
-password_button = Button(text="Generate Password", fg="orange", bg=BGCOLOR_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0, command=generate_password)
+password_button = Button(text="Generate Password", fg="white", bg=BGCOLOR_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0, command=generate_password)
 password_button.grid(column=2, row=3)  # Display the password button in the frame, with left alignment
 
 
-add_button = Button(width=50, text="Add", fg="orange", bg=BGCOLOR_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0, command=save)
+add_button = Button(width=50, text="Add", fg="white", bg=BGCOLOR_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0, command=save)
 add_button.grid(row=4, column=1, columnspan=2, padx=2, pady=2)
 
-search_button = Button(width=17, text="Search", fg="orange", bg="cyan", font=("Calibri", 9, "normal"), highlightthickness=0, command=search_websites)
+search_button = Button(width=17, text="Search", fg="white", bg=CYAN_DARKTHEME2, font=("Calibri", 9, "normal"), highlightthickness=0, command=search_websites)
 search_button.grid(column=2, row=1)  # Display the password button in the frame, with left alignment
 
 # ---------------------------- Development Tools ------------------------------- #
