@@ -34,3 +34,9 @@ except FileNotFoundError:
     file.write("Something that might cause an exception\n")
 except KeyError as error_message:
     print(f"The key {error_message} does not exist.  ")
+else:
+    content = file.read()
+    print(content)
+finally:
+    file.close()
+    print("File was closed.")
