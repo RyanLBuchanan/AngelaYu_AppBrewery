@@ -1,29 +1,26 @@
 from tkinter import *
 import pandas as pd
 from pandas import DataFrame
-from random import random
+import random
 from tkinter import messagebox
-
 
 # Constants
 BACKGROUND_COLOR = "#B1DDC6"
 LANGUAGE_FONT = ("Ariel", 40, "italic")
 VOCAB_FONT = ("Ariel", 60, "bold")
 
-# Create Dataframe from French words csv
-french_dict = DataFrame.to_dict(orient="records")
+
+
 
 # ---------------------------- Card Manager ------------------------------- #
+# Create Dataframe from French words csv
+data = pd.read_csv("data/french_words.csv")
+to_learn = data.to_dict(orient="records") # Dictionary such that: [{'French': 'partie', 'English': 'part'}, . . . , {'French': 'histoire', 'English': 'history'}]
 
-def x_button_click():
-    with open("data/french_words.csv", "R") as data_file:
-        pd.read_csv(data_file)
-
-
-
-        # canvas.vocab_text.get()
-
-
+def next_card():
+    current_card = random.choice(to_learn)
+    canvas.itemconfig(card_title, text="French")
+    canvas.itemconfig(card_word, text=current_card["French"])
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -38,21 +35,23 @@ canvas.create_image(400, 263, image=card_front_img)
 canvas.grid(column=0, row=0, columnspan=2)
 
 # Create French language title text
-canvas.create_text(400, 150, text="Title", font=LANGUAGE_FONT)
+card_title = canvas.create_text(400, 150, text="Title", font=LANGUAGE_FONT)
 
 # Create vocab word text
-vocab_text = canvas.create_text(400, 263, text="Word", font=VOCAB_FONT)
+card_word = canvas.create_text(400, 263, text="Word", font=VOCAB_FONT)
 
 # Create the unknown x button
-x_image = PhotoImage(file="images/wrong.png")
-unknown_button = Button(image=x_image, highlightthickness=0)
+cross_image = PhotoImage(file="images/wrong.png")
+unknown_button = Button(image=cross_image, highlightthickness=0, command=next_card)
 unknown_button.grid(column=0, row=1)
 
 # Create the known check button
 check_image = PhotoImage(file="images/right.png")
-known_button = Button(image=check_image, highlightthickness=0, command=x_button_click)
+known_button = Button(image=check_image, highlightthickness=0, command=next_card)
 known_button.grid(column=1, row=1)
 
+# Add French word to replace the UI placeholders by calling the next_card() function
+next_card()
 
 
 # ---------------------------- Development Tools ------------------------------- #
@@ -66,4 +65,3 @@ window.bind("<space>", exit_program)
 
 # Start the main event loop to display the window and handle user interactions
 window.mainloop()
-
