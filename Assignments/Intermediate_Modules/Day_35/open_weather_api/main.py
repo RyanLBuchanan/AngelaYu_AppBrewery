@@ -18,10 +18,10 @@ PARAMETERS = {
 
 """
 Complete API with parameters and my API key:
-https://api.openweathermap.org/data/2.5/weather?lat=41.222759&lon=-111.970421&appid=MY_API_KEY
+https://api.openweathermap.org/data/3.0/onecall?lat=41.222759&lon=-111.970421&appid=MY_API_KEY
 """
 
-response = requests.get("https://api.openweathermap.org/data/2.5/weather", params=PARAMETERS)
+response = requests.get("https://api.openweathermap.org/data/3.0/onecall", params=PARAMETERS)
 response.raise_for_status()
 data = response.json()
 print(data)
