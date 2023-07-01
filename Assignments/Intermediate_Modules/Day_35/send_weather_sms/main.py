@@ -1,8 +1,13 @@
 import os
-import requests
 from dotenv import load_dotenv
+import requests
+from twilio.rest import Client
 
-load_dotenv() # Load environment variables from .env file
+load_dotenv()  # Load environment variables from .env file
+
+# Twilio dashboard information
+account_sid = os.environ['TWILIO_ACCOUNT_SID']
+auth_token = os.environ['TWILIO_AUTH_TOKEN']
 
 # Latitude and longitude constants for Ogden, Utah, USA
 MY_LAT = 41.222759
@@ -15,7 +20,6 @@ WEST_PALM_BEACH_FL_LONG = -80.054947
 # Latitude and longitude constants for Puerto Galera, Philippines
 PUERTO_GALERA_LAT = 13.501690
 PUERTO_GALERA_LONG = 120.955101
-
 
 # Open Weather One Call API endpoint
 OWM_Endpoint = "https://api.openweathermap.org/data/3.0/onecall"
@@ -49,20 +53,12 @@ for hour_data in weather_slice:
         will_rain = True
 
 if will_rain:
-    print(f"Bring an umbrella.")
+    client = Client(account_sid, auth_token)
+    message = client.messages \
+        .create(
+        body="It's going to rain today. Remember to bring an umbrella.",
+        from_="+18554760916",
+        to="+13854329281"
+    )
+    print(message.status)
 
-
-# hour_counter = 0
-# for hour_data in range(0, 12):
-#     weather_id = weather_data["hourly"][0]["weather"][0]["id"]
-#     if weather_id <= 700:
-#         print(f"{hour_counter}. Bring an umbrella")
-#         hour_counter += 1
-
-
-# hour_counter = 1
-# for hour_data in weather_data["hourly"]:
-#     weather_id = hour_data["weather"][0]["id"]
-#     if weather_id <= 700:
-#         print(f"{hour_counter}. Bring an umbrella")
-#         hour_counter += 1
