@@ -5,6 +5,10 @@ from twilio.rest import Client
 
 load_dotenv()
 
+# Twilio dashboard information
+TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
+
 NEWS_API_KEY = os.environ['NEWS_API_KEY']
 ALPHAVANTAGE_API_KEY = os.environ['ALPHAVANTAGE_API_KEY']
 
@@ -13,6 +17,35 @@ COMPANY_NAME = "Tesla Inc"
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
+
+alphavantage_parameters = {
+    "function": "TIME_SERIES_INTRADAY",
+    "symbol": STOCK_NAME,
+    "interval": "60min",
+    "apikey": ALPHAVANTAGE_API_KEY,
+}
+
+news_parameters = {
+    "q": STOCK_NAME,
+    "searchIn": "title",
+    "from": "2023-06-30",
+    "sortBy": "popularity",
+    "apiKey": NEWS_API_KEY,
+}
+
+# Stock API request
+stock_response = requests.get(STOCK_ENDPOINT, alphavantage_parameters)
+stock_response.raise_for_status()
+stock_data = stock_response.json()
+# print(f"Stock data: {stock_data}")
+print(stock_data)
+
+# News API request
+news_response = requests.get(NEWS_ENDPOINT, news_parameters)
+news_response.raise_for_status()
+news_data = news_response.json()
+# print(f"News data: {news_data}")
+print(news_data)
 
     ## STEP 1: Use https://www.alphavantage.co/documentation/#daily
 # When stock price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -41,7 +74,17 @@ NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 #TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
 
 #TODO 9. - Send each article as a separate message via Twilio. 
+# Send each article as a separate message
 
+# for article in articles:
+# client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+# message = client.messages \
+#     .create(
+#     body="",
+#     from_="+18554760916",
+#     to="+13854329281"
+# )
+# print(message.status)
 
 
 #Optional TODO: Format the message like this: 
