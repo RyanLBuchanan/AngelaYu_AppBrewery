@@ -20,6 +20,8 @@ USERNAME = os.environ["SHEETY_USERNAME"]
 PROJECTNAME = "myWorkouts"
 SHEETNAME = "workouts"
 SHEETY_ENDPOINT = f"https://api.sheety.co/{USERNAME}/{PROJECTNAME}/{SHEETNAME}"
+SHEETY_BASIC_USERNAME = os.environ["SHEETY_BASIC_USERNAME"]
+SHEETY_BASIC_PASSWORD = os.environ["SHEETY_BASIC_PASSWORD"]
 
 HEADERS = {
     "x-app-id": NIX_APP_ID,
@@ -55,6 +57,14 @@ for exercise in workout_result["exercises"]:
         }
     }
 
-sheety_response = requests.post(url=SHEETY_ENDPOINT, json=sheet_inputs)
+# Basic authentication
+sheety_response = requests.post(
+    url=SHEETY_ENDPOINT,
+    json=sheet_inputs,
+    auth=(SHEETY_BASIC_USERNAME,
+          SHEETY_BASIC_PASSWORD
+    )
+)
+
 sheety_response.raise_for_status()
 print(sheety_response.text)
