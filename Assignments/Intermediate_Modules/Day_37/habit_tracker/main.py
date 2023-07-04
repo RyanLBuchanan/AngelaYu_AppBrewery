@@ -11,6 +11,11 @@ USERNAME = "rylobuchanan"
 GRAPHID = "graph1"
 GRAPH_ENDPOINT = f"{PIXELA_ENDPOINT}/{USERNAME}/graphs"
 POST_PIXEL_ENDPOINT = f"{GRAPH_ENDPOINT}/{GRAPHID}"
+
+today = datetime.now()
+
+UPDATE_ENDPOINT = f"{PIXELA_ENDPOINT}/{USERNAME}/graphs/{GRAPHID}/{today.strftime('%Y%m%d')}"
+
 PIXELA_TOKEN = os.environ['PIXELA_TOKEN']
 
 user_params = {
@@ -33,13 +38,20 @@ headers = {
     "X-USER-TOKEN": PIXELA_TOKEN
 }
 
-today = datetime(year=2023, month=7, day=2)
-print(today.strftime("%Y%m%d"))
+# print(today.strftime("%Y%m%d"))
 
 pixel_data = {
     "date": today.strftime("%Y%m%d"),
     "quantity": "4"
 }
+
+# Delete pixel
+# response = requests.delete(url=UPDATE_ENDPOINT, headers=headers)
+# print(response.text)
+
+# Update pixels with put method
+# response = requests.put(url=UPDATE_ENDPOINT, json=pixel_data, headers=headers)
+# print(response.text)
 
 # Post a pixel to the Python Programming Graph
 response = requests.post(url=POST_PIXEL_ENDPOINT, json=pixel_data, headers=headers)
