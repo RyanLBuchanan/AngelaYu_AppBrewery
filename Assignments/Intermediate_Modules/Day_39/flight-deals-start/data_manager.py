@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 import requests
-from datetime import datetime
+from pprint import pprint
 
 load_dotenv()
 
@@ -10,48 +10,34 @@ load_dotenv()
 SHEETY_ENDPOINT_KEY = os.environ["SHEETY_ENDPOINT_KEY"]
 PROJECTNAME = "flightDeals"
 SHEETNAME = "prices"
-SHEETY_ENDPOINT = f"https://api.sheety.co/{SHEETY_ENDPOINT_KEY}/{PROJECTNAME}/{SHEETNAME}"
-SHEETY_BASIC_USERNAME = os.environ["SHEETY_BASIC_USERNAME"]
-SHEETY_BASIC_PASSWORD = os.environ["SHEETY_BASIC_PASSWORD"]
+SHEETY_PRICES_ENDPOINT = f"https://api.sheety.co/{SHEETY_ENDPOINT_KEY}/{PROJECTNAME}/{SHEETNAME}"
 
-# Kiwi API constants
-KIWI_HEADERS = os.environ["KIWI_HEADERS"]
-KIWI_ENDPOINT = os.environ["KIWI_ENDPOINT"]
-KIWI_API_KEY = os.environ["KIWI_API_KEY"]
-
-kiwi_parameters = {
-
-}
-
-today = datetime.now()
 class DataManager:
 
     def __init__(self):
+        self.destination_data = {}
 
-        # Retrieve prices with Kiwi.com API
-        kiwi_response = requests.get(url=KIWI_ENDPOINT, json=kiwi_parameters, headers=KIWI_HEADERS)
-        kiwi_response.raise_for_status()
-        price_result = kiwi_response.json()
-        print(price_result)
+    def get_destination_data(self):
+        # 2. Use the Sheety API to GET all the data in that sheet and print it out.
+        response = requests.get(url=SHEETY_PRICES_ENDPOINT)
+        data = response.json()
+        self.destination_data = data["prices"]
+        # 3. Try importing pretty print and printing the data out again using pprint().
+        # pprint(data)
+        return self.destination_data
 
-        #This class is responsible for talking to the Google Sheet.
-        for price in price_result["exercises"]:
-            sheet_inputs = {
-                "workout": {
-                    "city": "",
-                    "iata code": "",
-                    "lowest price": 0
+
+    # 6. In the DataManager Class make a PUT request and use the row id  from sheet_data
+    # to update the Google Sheet with the IATA codes. (Do this using code).
+    def update_destination_codes(self):
+        for city in self.destination_data:
+            new_data = {
+                "price": {
+                    "iataCode": city["iataCode"]
                 }
             }
-
-        # Basic authentication
-        sheety_response = requests.post(
-            url=SHEETY_ENDPOINT,
-            json=sheet_inputs,
-            auth=(SHEETY_BASIC_USERNAME,
-                  SHEETY_BASIC_PASSWORD
-                  )
-        )
-
-        sheety_response.raise_for_status()
-        print(sheety_response.text)
+            response = requests.put(
+                url=f"{SHEETY_PRICES_ENDPOINT}/{city['id']}",
+                json=new_data
+            )
+            print(response.text)
