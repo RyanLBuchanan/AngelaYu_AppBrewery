@@ -4,9 +4,6 @@ first_name = input(
     "Welcome to Ryan's Flight Club.\nWe find the best flight deals and email you.\nWhat is your first name? ")
 last_name = input("And what is your last name, please? ")
 
-email = input("Finally, what is your email? ")
-email_confirmation = input("Please type your email a second time for confirmation: ")
-
 email = "email"
 email_confirmation = "email_confirmation"
 
