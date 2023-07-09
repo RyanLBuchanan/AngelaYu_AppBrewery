@@ -1,0 +1,20 @@
+# Python
+venv/
+__pycache__/
+
+# IDE-specific
+.idea/
+.vscode/
+
+# Log files
+*.log
+
+# Compiled Python files
+*.pyc
+
+# Environment variables
+.env
+
+# Other sensitive or generated files
+secret_key.txt
+db.sqlite
