@@ -7,5 +7,5 @@ driver = webdriver.Chrome(service=service)
 
 
 driver.get("https://www.amazon.com")
-# driver.close()
+driver.close()
 driver.quit()
